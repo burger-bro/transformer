@@ -4,6 +4,7 @@
 @homepage : https://github.com/gusdnd852
 """
 import math
+import os.path
 import time
 
 from torch import nn, optim
@@ -127,6 +128,9 @@ def run(total_epoch, best_loss):
         if valid_loss < best_loss:
             best_loss = valid_loss
             torch.save(model.state_dict(), 'saved/model-{0}.pt'.format(valid_loss))
+
+        if not os.path.exists('result'):
+            os.mkdir('result')
 
         f = open('result/train_loss.txt', 'w')
         f.write(str(train_losses))
